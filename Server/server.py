@@ -1,74 +1,55 @@
-"""
-python2 e python3.
-"""
-
-#Testato per aprire il file di rilevamento misure corpo e rilevamento colore
-
-
-import time
+# Python 3
 import socket
-from flask import Flask
-import subprocess
-import webbrowser
-import urllib.request
+import time
 
+# Creare un socket
+server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
+# Assegnare l'indirizzo IP e la porta
+server_address = ('192.168.1.97', 22222)
+server_socket.bind(server_address)
 
-################################################
-# Indirizzo IP del server
-SERVER_ADDRESS = '172.20.10.2'
-#################################################
-
-
-SERVER_PORT = 22222
-
-# Creo Socket
-s = socket.socket()
-
-
-s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-s.bind((SERVER_ADDRESS, SERVER_PORT))
-s.listen(5)
-
-print("SERVER avviato... sono in attesa %s. Kill con Ctrl-C" %
-      str((SERVER_ADDRESS, SERVER_PORT)))
-
+# Ascoltare le connessioni in arrivo
+server_socket.listen(1)
+print("Server pronto")
 while True:
-        c, addr = s.accept() 
-        print("\nConnessione ricevuta da NAO %s" % str(addr)) 
+    try:
+        # Accetta le connessioni
+        client_socket, client_address = server_socket.accept()
 
-        
-        data = c.recv(2048) 	#aspetta inizio
-        data = data.decode()
-            
-        print("Ricevuto '%s' da NAO" % data)
+        while True:
+            try:
+                
+                data = client_socket.recv(2048)
+                if not data:
+                    print('Il client si è disconnesso')
+                    break
+                print('ricevuto "{}"'.format(data))
 
-        print('%s' %data)
-        if(data[0] == "INIZIO"):
-            
-            print("Inizio misure")
-            script_misure = './mediapipeV2_TOR_rilevaCorpo.py'
-            subprocess.run(['python3', script_misure, 'maglia', 'M'])
-            time.sleep(1)
-            script_colore = './prova_colore_medio.py'#Riconoscimento_colore_area/
-            subprocess.run(['python3', script_colore])
-            print("Fine misure")
-            
-            data=["parla ascolta","La taglia che ho riconosciuto è L, confermi: "]
-            data = data.encode()	#manda i dati
-            c.send(data)
-            data = c.recv(2048) 	#riceve la risposta
-            data = data.decode()
-            if(data[0]=="rx" and data[1]=="si"):
-                data=["parla","hai accettato"]
-            elif(data[0]=="rx" and data[1]=="no"):
-                data=["parla","hai annullato"]
-            data = data.encode()
-            c.send(data)
-            data = c.recv(2048) 	#riceve la risposta
-            data = data.decode()
-            data=["fine"]
-            data = data.encode()
-            c.send(data)
-            
-        c.close()
+                # Risponde
+                response = 'Per favore mettiti in posizione davanti alla fotocamera, così potro capire le tue taglie'
+                client_socket.sendall(response.encode())    #sendall al posto che send manda tutti i dati presenti nel buffer, invece send normale solo il numero di byte indicati ogni volta
+                time.sleep(5)   #aspetta 5 secondi
+
+                #TODO ___________far partire i programmi per la misura__________
+                
+                response = 'Ho trovato che per la maglia ti sta bene la taglia M, vuoi una taglia in più?'
+                client_socket.sendall(response.encode())
+                data = client_socket.recv(2048)
+                rx=data.decode()
+                print("Risposta alla domanda dal client: "+rx)
+                if rx=="si":
+                    response = 'Ho aumentato di una taglia'
+                else:
+                    response = 'Hai confermato la taglia'
+                client_socket.sendall(response.encode())
+
+            except socket.error as e:
+                print("Errore durante la comunicazione con il client: {}".format(e))    #stampa il tipo di errore che ha riscontrato
+                break
+
+        # Pulire la connessione
+        client_socket.close()
+
+    except socket.error as e:
+        print("Errore di connessione: {}".format(e))
