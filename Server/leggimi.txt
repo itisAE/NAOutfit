@@ -1,0 +1,1 @@
+bisogna aggiungere un tempo di time out al nao e vedere se e come aggiungere un try except al server
