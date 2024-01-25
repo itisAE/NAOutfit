@@ -6,7 +6,7 @@ import time
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # Assegnare l'indirizzo IP e la porta
-server_address = ('192.168.1.97', 22222)
+server_address = ('192.168.168.100', 22222)
 server_socket.bind(server_address)
 
 # Ascoltare le connessioni in arrivo
@@ -27,9 +27,9 @@ while True:
                 print('ricevuto "{}"'.format(data))
 
                 # Risponde
-                response = 'Per favore mettiti in posizione davanti alla fotocamera, così potro capire le tue taglie'
+                response = 'Per favore mettiti in posizione davanti alla fotocamera, così potrò capire le tue taglie'
                 client_socket.sendall(response.encode())    #sendall al posto che send manda tutti i dati presenti nel buffer, invece send normale solo il numero di byte indicati ogni volta
-                time.sleep(5)   #aspetta 5 secondi
+                time.sleep(10)   #aspetta 5 secondi
 
                 #TODO ___________far partire i programmi per la misura__________
                 
@@ -38,11 +38,16 @@ while True:
                 data = client_socket.recv(2048)
                 rx=data.decode()
                 print("Risposta alla domanda dal client: "+rx)
+                                  
+                
                 if rx=="si":
                     response = 'Ho aumentato di una taglia'
+                    client_socket.sendall(response.encode())
                 else:
                     response = 'Hai confermato la taglia'
-                client_socket.sendall(response.encode())
+                    client_socket.sendall(response.encode())
+                
+                time.sleep(10)
 
             except socket.error as e:
                 print("Errore durante la comunicazione con il client: {}".format(e))    #stampa il tipo di errore che ha riscontrato
