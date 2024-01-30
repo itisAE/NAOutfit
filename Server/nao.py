@@ -70,6 +70,7 @@ class MyClass(GeneratedClass):
                 self.log("Connessione al SERVER TERMINATA")
             except socket.error as e:
                 self.log("Connessione fallita (SERVER OFFLINE), continuo il programma")
+                self.onStopped()
                 return
 
             c.close()
