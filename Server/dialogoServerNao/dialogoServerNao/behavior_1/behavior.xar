@@ -124,8 +124,8 @@ class MyClass(GeneratedClass):
         self.processing()
 
     def processing(self):
-        SERVER_ADDRESS = '192.168.1.97'  	# IP del server
-        SERVER_PORT = 22222  				# Porta del server
+        SERVER_ADDRESS = '192.168.1.97'      # IP del server
+        SERVER_PORT = 22222                  # Porta del server
 
         if self.command == "INIZIO":
             data = 'INIZIO'  # Dati inviati al server
@@ -153,7 +153,7 @@ class MyClass(GeneratedClass):
                 self.log("Risposta da server: " + datastr)
                 self.parlaAscolta(datastr)#utilizza un uscita "speciale" pk dopo aver utilizzato la funzione che parla uso il suo bang di fine comando
 
-                while True:		#while true per aspettare che il comando che arriva sia corretto
+                while True:        #while true per aspettare che il comando che arriva sia corretto
                     data = self.command  # Assegna il valore a data pk così dopo fuori dal while posso utilizzarla
                     if data=="no" or data=="si":
                         break  # Esce dal ciclo se la condizione è vera
@@ -169,6 +169,7 @@ class MyClass(GeneratedClass):
                 self.log("Connessione al SERVER TERMINATA")
             except socket.error as e:
                 self.log("Connessione fallita (SERVER OFFLINE), continuo il programma")
+                self.onStopped()
                 return
 
             c.close()
