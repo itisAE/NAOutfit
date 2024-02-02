@@ -1,10 +1,8 @@
 import time
-import socket
-from mediapipeV2_TOR_rilevaCorpo import calcolaTaglia
-from prova_colore_medio import scatta_foto
-from prova_colore_medio import ottieni_colore_medio
-#from gestisci_utenti import gestisci_utente 
+import socket 
 import webbrowser
+from dependencies import *
+
 
 taglie = list(('S', 'M', 'L', 'XL', 'XXL'))
 
@@ -21,7 +19,7 @@ user = {
 
 ################################################
 # Indirizzo SERVER a cui mi collego
-SERVER_ADDRESS = '10.210.0.153'
+SERVER_ADDRESS = '192.168.1.108'
 #################################################
 
 
@@ -77,7 +75,6 @@ while True:
                 frame = scatta_foto()
                 colore = ottieni_colore_medio(frame)
                 data = "ho rilevato che hai la taglia " + user['taglia'] + " va bene così?"
-                c.send(data.encode('utf-8'))
                 webbrowser.open_new_tab('./img/taglia_'+user['taglia']+'.pdf')#apre la pagina della taglia
             elif data == 'si' or data == 'no':
                 if data == 'no':
@@ -86,13 +83,16 @@ while True:
                 else:
                     data = 'ora ti propongo dei capi di abbigliamento secondo l\'armorcomia che ho rilevato ma con una taglia in più!!'
                     user['taglia_succ'] = True
-            elif data == 'aumentarla' or data == 'diminuirla':
-                if data == 'aumentarla':
-                    user['taglia_succ'] = True
-                else:
-                    user['taglia_succ'] = False
                 data = 'ora ti propongo dei capi di abbigliamento secondo l\'armorcomia che ho rilevato!!'
+                c.send(data.encode('utf-8'))
+                c.recv(2048)#consuma
+                link = gestisci_utente(user['sesso'], user['sport'], user['colore_capelli'])
+                print(link)
+                data = ritornaRisposta('https://www.decathlon.it/p/mp/siroko/giacca-da-snowboard-da-donna-sport-invernali-w1-w-crystal-siroko-nero/_/R-p-4c55f510-f23e-4865-beea-531eddabe722?mc=4c55f510-f23e-4865-beea-531eddabe722_c1.c5&c=nero')#capito l'errore che dava in leggi_descrizione_da_link: i link devono essere giusti altrimenti non vengono trovati i link nel txt
+                #data viene mandata dal send sotto
+
             print(data)
             data = data.encode()     
             c.send(data)
+    #break #!è necessario? il break nel while più interno esce solo dal primo while in teoria, da provare
            
