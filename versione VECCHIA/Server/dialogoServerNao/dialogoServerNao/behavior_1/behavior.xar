@@ -37,7 +37,7 @@ class MyClass(GeneratedClass):
                             <Input name="onStart" type="1" type_size="1" nature="1" inner="0" tooltip="To send the text on the output." id="2" />
                             <Output name="onStopped" type="3" type_size="1" nature="2" inner="0" tooltip="The text you entered." id="3" />
                         </Box>
-                        <Box name="Say Text" id="1" localization="8" tooltip="Say the text received on its input." x="661" y="154">
+                        <Box name="Say Text" id="1" localization="8" tooltip="Say the text received on its input." x="665" y="152">
                             <bitmap>media/images/box/interaction/say.png</bitmap>
                             <script language="4">
                                 <content>
@@ -124,7 +124,7 @@ class MyClass(GeneratedClass):
         self.processing()
 
     def processing(self):
-        SERVER_ADDRESS = '192.168.1.97'      # IP del server
+        SERVER_ADDRESS = '10.210.0.130'      # IP del server
         SERVER_PORT = 22222                  # Porta del server
 
         if self.command == "INIZIO":
@@ -153,15 +153,48 @@ class MyClass(GeneratedClass):
                 self.log("Risposta da server: " + datastr)
                 self.parlaAscolta(datastr)#utilizza un uscita "speciale" pk dopo aver utilizzato la funzione che parla uso il suo bang di fine comando
 
-                while True:        #while true per aspettare che il comando che arriva sia corretto
-                    data = self.command  # Assegna il valore a data pk così dopo fuori dal while posso utilizzarla
-                    if data=="no" or data=="si":
-                        break  # Esce dal ciclo se la condizione è vera
-                    time.sleep(0.1)  # Aspetta per un breve periodo di tempo per non sovraccaricare la cpu
+                while self.command not in ["sci", "nuoto", "running"]:
+                    time.sleep(0.1)
+                c.sendall(self.command)  # Invia i dati
 
-                c.sendall(data)  # Invia i dati
-
+                #il recv è bloccante quindi no delay
                 data = c.recv(2048)  # Riceve i dati
+                datastr = str(data)
+                self.log("Domande all'utente")
+                self.log("Risposta da server: " + datastr)
+                self.parlaAscolta(datastr)#utilizza un uscita "speciale" pk dopo aver utilizzato la funzione che parla uso il suo bang di fine comando
+
+                while self.command not in ["maschio", "femmina", "non voglio specificarlo"]:
+                    time.sleep(0.1)
+                c.sendall(self.command)  # Invia i dati
+
+
+
+                data = c.recv(4096)  # Riceve i dati
+                datastr = str(data)
+                self.log("Start della misurazione")
+                self.log("Risposta da server: " + datastr)
+                self.outStr(datastr)
+
+                data = c.recv(4096)  # Riceve i dati
+                datastr = str(data)
+                self.log("Start della misurazione")
+                self.log("Risposta da server: " + datastr)
+                self.outStr(datastr)
+
+                data = c.recv(4096)  # Riceve i dati
+                datastr = str(data)
+                self.log("Start della misurazione")
+                self.log("Risposta da server: " + datastr)
+                self.outStr(datastr)
+
+                data = c.recv(4096)  # Riceve i dati
+                datastr = str(data)
+                self.log("Start della misurazione")
+                self.log("Risposta da server: " + datastr)
+                self.outStr(datastr)
+
+                data = c.recv(4096)# Riceve i dati
                 datastr = str(data)
                 self.log("Risposta finale")
                 self.log("Risposta da server: "+datastr)
@@ -169,18 +202,19 @@ class MyClass(GeneratedClass):
                 self.log("Connessione al SERVER TERMINATA")
             except socket.error as e:
                 self.log("Connessione fallita (SERVER OFFLINE), continuo il programma")
-                self.onStopped()
+                self.fine()
                 return
 
             c.close()
-        self.onStopped()]]>
+        time.sleep(5)
+        self.fine()]]>
 </content>
                             </script>
                             <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
                             <Input name="userCommand" type="3" type_size="1" nature="1" inner="0" tooltip="" id="2" />
-                            <Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is finished." id="3" />
-                            <Output name="outStr" type="3" type_size="1" nature="2" inner="0" tooltip="" id="4" />
-                            <Output name="parlaAscolta" type="3" type_size="1" nature="2" inner="0" tooltip="" id="5" />
+                            <Output name="outStr" type="3" type_size="1" nature="2" inner="0" tooltip="" id="3" />
+                            <Output name="parlaAscolta" type="3" type_size="1" nature="2" inner="0" tooltip="" id="4" />
+                            <Output name="fine" type="1" type_size="1" nature="2" inner="0" tooltip="" id="5" />
                         </Box>
                         <Box name="Set Language" id="3" localization="8" tooltip="Select the language you would like the robot to speak and understand. Any following call to&#x0A;ALSpeechRecognition (Speech Reco. box for instance) or ALTextToSpeech (Say box&#x0A;for instance) will use this language." x="55" y="103">
                             <bitmap>media/images/box/interaction/say.png</bitmap>
@@ -256,7 +290,7 @@ class MyClass(GeneratedClass):
                             </Parameter>
                             <Resource name="Speech" type="Lock" timeout="0" />
                         </Box>
-                        <Box name="Speech Reco." id="2" localization="8" tooltip="Recognize a word from a list of words set in the box parameters.&#x0A;&#x0A;V1.1.0&#x0A;" x="426" y="225">
+                        <Box name="Speech Reco." id="2" localization="8" tooltip="Recognize a word from a list of words set in the box parameters.&#x0A;&#x0A;V1.1.0&#x0A;" x="392" y="225">
                             <bitmap>media/images/box/interaction/ear.png</bitmap>
                             <script language="4">
                                 <content>
@@ -335,7 +369,7 @@ class MyClass(GeneratedClass):
                             <Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is finished." id="4" />
                             <Output name="wordRecognized" type="3" type_size="1" nature="2" inner="0" tooltip="Word recognized with a confidence higher than the threshold set in the box parameters." id="5" />
                             <Output name="onNothing" type="1" type_size="1" nature="2" inner="0" tooltip="Nothing has been understood." id="6" />
-                            <Parameter name="Word list" inherits_from_parent="0" content_type="3" value="si; no" default_value="yes;no" custom_choice="0" tooltip="Try to recognize a word from a list of words set in the box parameters." id="7" />
+                            <Parameter name="Word list" inherits_from_parent="0" content_type="3" value="sci; nuoto; running; maschio; femmina; non voglio specificarlo" default_value="yes;no" custom_choice="0" tooltip="Try to recognize a word from a list of words set in the box parameters." id="7" />
                             <Parameter name="Confidence threshold (%)" inherits_from_parent="0" content_type="1" value="30" default_value="30" min="0" max="100" tooltip="If the confidence associated with the word recognized is below this threshold, the robot will consider that it is not recognized." id="8" />
                             <Parameter name="Visual expression" inherits_from_parent="0" content_type="0" value="1" default_value="1" tooltip="Use the LEDs to show feedbacks from the robot during the recognition.&#x0A;&#x0A;For example:&#x0A;- Eyes leds get blue and turn when the speech recognition is launched.&#x0A;- They get yellow when the robot hears someone talking and analyses what it heard.&#x0A;- They flash in green when the robot understood and flash in red otherwise." id="9" />
                             <Parameter name="Enable word spotting" inherits_from_parent="0" content_type="0" value="0" default_value="0" tooltip="If this option is not activated the robot will only understand exact expressions. If it is, he will spot the exact expressions even in the middle of a sentence.&#x0A;&#x0A;!!Warning!! This option is only available with the speech recognition module using Nuance (ie in Atom version of the robot)." id="10" />
@@ -397,65 +431,16 @@ class MyClass(GeneratedClass):
                             <Parameter name="Speed (%)" inherits_from_parent="1" content_type="1" value="100" default_value="100" min="50" max="200" tooltip="Changes the speed of the voice.&#x0A;&#x0A;Note: For a better effect, you can compensate this parameter with the voice&#x0A;shaping parameter. For example, if you want to increase by 20% the speed, you&#x0A;will have to decrease by 20% the voice shaping to keep a constant average&#x0A;speed." id="6" />
                             <Resource name="Speech" type="Lock" timeout="0" />
                         </Box>
-                        <Box name="Delay" id="14" localization="8" tooltip="Wait a moment before triggering the output. &#x0A;Can be stopped anytime. &#x0A;Multiple inputs will trigger multiple outputs." x="661" y="47">
-                            <bitmap>media/images/box/wait.png</bitmap>
-                            <script language="4">
-                                <content>
-                                    <![CDATA[class MyClass(GeneratedClass):
-    def __init__(self):
-        GeneratedClass.__init__(self, False)
-
-    def onLoad(self):
-        self.delayed = []
-
-    def onUnload(self):
-        self.cancelDelays()
-
-    def cancelDelays(self):
-        cancel_list = list(self.delayed)
-        for d in cancel_list:
-            d.cancel()
-
-    def cleanDelay(self, fut, fut_ref):
-        self.delayed.remove(fut)
-
-    def triggerOutput(self):
-        self.timerOutput()
-
-    def onInput_onStart(self):
-        import qi
-        import functools
-        delay_future = qi.async(self.triggerOutput, delay=int(self.getParameter("Timeout (s)") * 1000 * 1000))
-        # keep the async operation in an array for cancel
-        # and remove it when it is finished in the callback
-        self.delayed.append(delay_future)
-        bound_clean = functools.partial(self.cleanDelay, delay_future)
-        delay_future.addCallback(bound_clean)
-
-    def onInput_onStop(self):
-        if self.getParameter("Trigger timerOutput if cancelled") and self.delayed:
-            self.timerOutput()
-        self.onUnload()]]>
-</content>
-                            </script>
-                            <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
-                            <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Start the Delay box with the configured timeout value." id="2" />
-                            <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Stop the wait and stimulate the output." id="3" />
-                            <Output name="timerOutput" type="1" type_size="1" nature="1" inner="0" tooltip="Send a bang once delay set in parameters is elapsed, or if the box is stopped and the appropriate parameter is set." id="4" />
-                            <Parameter name="Timeout (s)" inherits_from_parent="0" content_type="2" value="3" default_value="1" min="0" max="5000" tooltip="Duration the box waits before stimulating the output." id="5" />
-                            <Parameter name="Trigger timerOutput if cancelled" inherits_from_parent="0" content_type="0" value="0" default_value="1" tooltip="If the box is currently delaying at least one signal and cancelled, output will be stimulated." id="6" />
-                        </Box>
                         <Link inputowner="6" indexofinput="2" outputowner="12" indexofoutput="3" />
                         <Link inputowner="12" indexofinput="2" outputowner="3" indexofoutput="3" />
                         <Link inputowner="3" indexofinput="2" outputowner="0" indexofoutput="2" />
-                        <Link inputowner="1" indexofinput="2" outputowner="6" indexofoutput="4" />
+                        <Link inputowner="1" indexofinput="2" outputowner="6" indexofoutput="3" />
                         <Link inputowner="6" indexofinput="2" outputowner="2" indexofoutput="5" />
                         <Link inputowner="2" indexofinput="2" outputowner="2" indexofoutput="6" />
                         <Link inputowner="2" indexofinput="3" outputowner="2" indexofoutput="4" />
-                        <Link inputowner="4" indexofinput="2" outputowner="6" indexofoutput="5" />
+                        <Link inputowner="4" indexofinput="2" outputowner="6" indexofoutput="4" />
                         <Link inputowner="2" indexofinput="2" outputowner="4" indexofoutput="4" />
-                        <Link inputowner="14" indexofinput="2" outputowner="6" indexofoutput="3" />
-                        <Link inputowner="0" indexofinput="4" outputowner="14" indexofoutput="4" />
+                        <Link inputowner="0" indexofinput="4" outputowner="6" indexofoutput="5" />
                     </Diagram>
                 </BehaviorKeyframe>
             </BehaviorLayer>
