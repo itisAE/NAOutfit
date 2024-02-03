@@ -53,18 +53,18 @@ while True:
                 c.close()
                 break
             elif data == 'INIZIO':
-                data = 'Quali prodotti vuoi che ti suggerisca? Per uomo o donna?'
+                data = 'Per il buon funzionamento del sistema avrei bisogno di sapere il tuo sesso, ma se non vuoi dirmelo non fa nulla. nel caso tu voglia specificarmelo pronuncia maschio se sei un maschio e femmina se sei una femmina altrimenti non voglio specificarlo.'
                 webbrowser.open_new_tab('./img/sesso.pdf')#apre il pdf per la scelta del sesso
             elif data == 'donna' or data == 'uomo':
                 if data == 'donna':
                     user['sesso'] = 'F'
                 else:
                     user['sesso'] = 'M'
-                data = 'Per quale sport vuoi prepararti ? RUNNING, NUOTO o SCI?'
+                data = 'Per quale sport vuoi prepararti ? RUNNING, NUOTO o SCI? Io sono bravo in tutti e tre, ma non voglio vantarmi.'
                 webbrowser.open_new_tab('./img/sport.pdf')
             elif data == 'running' or data == 'nuoto' or data == 'sci' :
                 user['sport'] = data
-                temp = 'Bene, ora che mi hai detto il tuo sport e il tuo sesso, posso iniziare a cercare il vestito più adatto per te. Per farlo, ho bisogno di fare uno scanning del tuo corpo, così da capire la tua taglia e il tuo colore dei capelli. Non ti preoccupare, è un’operazione veloce e indolore. Ti basterà stare fermo davanti a me per qualche secondo, mentre uso i miei potenti mezzi tecnici per scansionarti. Sei pronto?'
+                temp = 'Ottimo, mi piace molto questo sport. ora che mi hai detto il tuo sport e il tuo sesso, posso iniziare a cercare il vestito più adatto per te. Per farlo, ho bisogno di fare uno scanning del tuo corpo, così da capire la tua taglia e il tuo colore dei capelli. Non ti preoccupare, è un’operazione veloce e indolore. Ti basterà stare fermo davanti a me per qualche secondo, mentre uso i miei potenti mezzi tecnici per scansionarti. Sei pronto?'
                 c.send(temp.encode('utf-8'))
                 data = c.recv(2048) # consuma la risposta che arriva dal NAO, per fare un altro invio
                 print(data)
@@ -74,7 +74,8 @@ while True:
                     user['taglia'] = 'M'
                 frame = scatta_foto()
                 colore = ottieni_colore_medio(frame)
-                data = "ho rilevato che hai la taglia " + user['taglia'] + " va bene così?"
+                user['colore_capelli'] = colore
+                data = "ho rilevato che hai la taglia " + user['taglia'] + " e sei"+user['colore_capelli']+"di capelli va bene così?"
                 webbrowser.open_new_tab('./img/taglia_'+user['taglia']+'.pdf')#apre la pagina della taglia
             elif data == 'si' or data == 'no':
                 if data == 'no':
@@ -83,16 +84,16 @@ while True:
                 else:
                     data = 'ora ti propongo dei capi di abbigliamento secondo l\'armorcomia che ho rilevato ma con una taglia in più!!'
                     user['taglia_succ'] = True
-                data = 'ora ti propongo dei capi di abbigliamento secondo l\'armorcomia che ho rilevato!!'
+                #data = 'ora ti propongo dei capi di abbigliamento secondo l\'armorcomia che ho rilevato!!'
                 c.send(data.encode('utf-8'))
                 c.recv(2048)#consuma
                 link = gestisci_utente(user['sesso'], user['sport'], user['colore_capelli'])
-                print(link)
-                data = ritornaRisposta('https://www.decathlon.it/p/mp/siroko/giacca-da-snowboard-da-donna-sport-invernali-w1-w-crystal-siroko-nero/_/R-p-4c55f510-f23e-4865-beea-531eddabe722?mc=4c55f510-f23e-4865-beea-531eddabe722_c1.c5&c=nero')#capito l'errore che dava in leggi_descrizione_da_link: i link devono essere giusti altrimenti non vengono trovati i link nel txt
+                data = ritornaRisposta(link)#ritorna la stringa dal file --> verrà implementato chat gpt
+                webbrowser.open_new_tab(link)
                 #data viene mandata dal send sotto
 
             print(data)
             data = data.encode()     
             c.send(data)
-    #break #!è necessario? il break nel while più interno esce solo dal primo while in teoria, da provare
-           
+    break #!è necessario? il break nel while più interno esce solo dal primo while in teoria, da provare
+           #UPDATE: sembrerebbe funzionare, da testare con NAO 
