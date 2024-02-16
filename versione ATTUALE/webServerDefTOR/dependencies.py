@@ -159,7 +159,7 @@ dividendo_gambe=1.35
 
 def calcolaTaglia(arg1, arg2, arg3):
     print("Mettiti in posizione")
-    time.sleep(3)
+    #time.sleep(3)
     detector = poseDetector()
     ################################
     cap = cv2.VideoCapture(6)
@@ -326,22 +326,22 @@ def ottieni_colore_medio(frame, percorso_immagine_area = './prova_area.jpg'):#fo
 #FBR =  femmine bionde running
 #FMN = femmine more nuoto
 
-pagine_da_aprire_MMS = ['https://www.decathlon.it/p/mp/siroko/giacca-da-snowboard-da-donna-sport-invernali-w1-w-crystal-siroko-nero/_/R-p-4c55f510-f23e-4865-beea-531eddabe722?mc=4c55f510-f23e-4865-beea-531eddabe722_c1.c5&c=nero', 'https://www.decathlon.it/p/mp/siroko/giacca-da-snowboard-da-donna-sport-invernali-w1-w-crystal-siroko-nero/_/R-p-4c55f510-f23e-4865-beea-531eddabe722?mc=4c55f510-f23e-4865-beea-531eddabe722_c1.c5&c=nero', 'https://www.decathlon.it/p/mp/siroko/giacca-da-snowboard-da-donna-sport-invernali-w1-w-crystal-siroko-nero/_/R-p-4c55f510-f23e-4865-beea-531eddabe722?mc=4c55f510-f23e-4865-beea-531eddabe722_c1.c5&c=nero']
-pagine_da_aprire_MMR = ['https://www.decathlon.it/p/mp/siroko/giacca-da-snowboard-da-donna-sport-invernali-w1-w-crystal-siroko-nero/_/R-p-4c55f510-f23e-4865-beea-531eddabe722?mc=4c55f510-f23e-4865-beea-531eddabe722_c1.c5&c=nero', 'https://www.decathlon.it/p/mp/siroko/giacca-da-snowboard-da-donna-sport-invernali-w1-w-crystal-siroko-nero/_/R-p-4c55f510-f23e-4865-beea-531eddabe722?mc=4c55f510-f23e-4865-beea-531eddabe722_c1.c5&c=nero', 'https://www.decathlon.it/p/mp/siroko/giacca-da-snowboard-da-donna-sport-invernali-w1-w-crystal-siroko-nero/_/R-p-4c55f510-f23e-4865-beea-531eddabe722?mc=4c55f510-f23e-4865-beea-531eddabe722_c1.c5&c=nero']
-pagine_da_aprire_MMN = ['https://www.decathlon.it/p/mp/siroko/giacca-da-snowboard-da-donna-sport-invernali-w1-w-crystal-siroko-nero/_/R-p-4c55f510-f23e-4865-beea-531eddabe722?mc=4c55f510-f23e-4865-beea-531eddabe722_c1.c5&c=nero', 'https://www.decathlon.it/p/mp/siroko/giacca-da-snowboard-da-donna-sport-invernali-w1-w-crystal-siroko-nero/_/R-p-4c55f510-f23e-4865-beea-531eddabe722?mc=4c55f510-f23e-4865-beea-531eddabe722_c1.c5&c=nero', 'https://www.decathlon.it/p/mp/siroko/giacca-da-snowboard-da-donna-sport-invernali-w1-w-crystal-siroko-nero/_/R-p-4c55f510-f23e-4865-beea-531eddabe722?mc=4c55f510-f23e-4865-beea-531eddabe722_c1.c5&c=nero']
+pagine_da_aprire_MMS = ['https://www.decathlon.it/p/giacca-snowboard-uomo-snb100-grigia-e-nera/_/R-p-349323?mc=8827795&c=grigio', 'https://www.decathlon.it/p/giacca-sci-uomo-patrol-rossa/_/R-p-335336?mc=8667071&c=rosso', 'https://www.decathlon.it/p/piumino-sci-uomo-900-warm-azzurro/_/R-p-339367?mc=8802780&c=blu']
+pagine_da_aprire_MMR = ['https://www.decathlon.it/p/maglia-manica-lunga-running-uomo-warm-regul/_/R-p-311855?mc=8642366&c=nero', 'https://www.decathlon.it/p/maglia-termica-running-uomo-kiprun-skincare-grigia/_/R-p-307913?mc=8588361&c=grigio', 'https://www.decathlon.it/p/mp/bodycross/giacca-impermeabile-running-manao-grigia/_/R-p-fbf8f0c0-9429-46d3-b903-c759e625d239?mc=fbf8f0c0-9429-46d3-b903-c759e625d239_c251&c=grigio', 'https://www.decathlon.it/p/mp/gsclosure/t-shirt-uomo-bioattiva-tecnologia-raggi-infrarossi-lontani-bluabyss/_/R-p-523995e1-5f6d-4fdc-bd4e-14a30678d96e?mc=523995e1-5f6d-4fdc-bd4e-14a30678d96e_c8&c=blu', 'https://www.decathlon.it/p/giacca-impermeabile-running-uomo-kiprun-rain-nera/_/R-p-329263?mc=8649262&c=nero']
+pagine_da_aprire_MMN = ['https://www.decathlon.it/p/costume-boxer-uomo-speedo-trick-nero-verde/_/R-p-X8815018?mc=8815018&c=nero', 'https://www.decathlon.it/p/costume-slip-uomo-arena-santa-blu/_/R-p-X8821724?mc=8821724&c=blu', 'https://www.decathlon.it/p/costume-slip-uomo-arena-icons-rosso-bianco/_/R-p-X8821727?mc=8821727&c=rosso']
 
-pagine_da_aprire_MBS = ['https://www.decathlon.it/p/mp/siroko/giacca-da-snowboard-da-donna-sport-invernali-w1-w-crystal-siroko-nero/_/R-p-4c55f510-f23e-4865-beea-531eddabe722?mc=4c55f510-f23e-4865-beea-531eddabe722_c1.c5&c=nero', 'https://www.decathlon.it/p/mp/siroko/giacca-da-snowboard-da-donna-sport-invernali-w1-w-crystal-siroko-nero/_/R-p-4c55f510-f23e-4865-beea-531eddabe722?mc=4c55f510-f23e-4865-beea-531eddabe722_c1.c5&c=nero', 'https://www.decathlon.it/p/mp/siroko/giacca-da-snowboard-da-donna-sport-invernali-w1-w-crystal-siroko-nero/_/R-p-4c55f510-f23e-4865-beea-531eddabe722?mc=4c55f510-f23e-4865-beea-531eddabe722_c1.c5&c=nero']
-pagine_da_aprire_MBR = ['https://www.decathlon.it/p/mp/siroko/giacca-da-snowboard-da-donna-sport-invernali-w1-w-crystal-siroko-nero/_/R-p-4c55f510-f23e-4865-beea-531eddabe722?mc=4c55f510-f23e-4865-beea-531eddabe722_c1.c5&c=nero', 'https://www.decathlon.it/p/mp/siroko/giacca-da-snowboard-da-donna-sport-invernali-w1-w-crystal-siroko-nero/_/R-p-4c55f510-f23e-4865-beea-531eddabe722?mc=4c55f510-f23e-4865-beea-531eddabe722_c1.c5&c=nero', 'https://www.decathlon.it/p/mp/siroko/giacca-da-snowboard-da-donna-sport-invernali-w1-w-crystal-siroko-nero/_/R-p-4c55f510-f23e-4865-beea-531eddabe722?mc=4c55f510-f23e-4865-beea-531eddabe722_c1.c5&c=nero']
-pagine_da_aprire_MBN = ['https://www.decathlon.it/p/mp/siroko/giacca-da-snowboard-da-donna-sport-invernali-w1-w-crystal-siroko-nero/_/R-p-4c55f510-f23e-4865-beea-531eddabe722?mc=4c55f510-f23e-4865-beea-531eddabe722_c1.c5&c=nero', 'https://www.decathlon.it/p/mp/siroko/giacca-da-snowboard-da-donna-sport-invernali-w1-w-crystal-siroko-nero/_/R-p-4c55f510-f23e-4865-beea-531eddabe722?mc=4c55f510-f23e-4865-beea-531eddabe722_c1.c5&c=nero', 'https://www.decathlon.it/p/mp/siroko/giacca-da-snowboard-da-donna-sport-invernali-w1-w-crystal-siroko-nero/_/R-p-4c55f510-f23e-4865-beea-531eddabe722?mc=4c55f510-f23e-4865-beea-531eddabe722_c1.c5&c=nero']
+pagine_da_aprire_MBS = ['https://www.decathlon.it/p/giacca-sci-uomo-900/_/R-p-339432?mc=8801961&c=verde']
+pagine_da_aprire_MBR = ['https://www.decathlon.it/p/maglia-running-uomo-dry-breath-rossa/_/R-p-326372?mc=964110&c=nero', 'https://www.decathlon.it/p/maglia-manica-lunga-running-uomo-sun-protect-nera/_/R-p-145872?mc=8398867&c=nero']
+pagine_da_aprire_MBN = ['https://www.decathlon.it/p/mp/guggen-mountain/guggen-mountain-2335-costume-da-bagno-da-uomo-stampa-di-alta-qualita/_/R-p-ba3ba99b-7e11-475b-bb1a-b79636a08445?mc=ba3ba99b-7e11-475b-bb1a-b79636a08445_c22.c1&c=giallo', 'https://www.decathlon.it/p/mp/guggen-mountain/guggen-mountainzm1609-costume-da-bagno-da-uomo-a-quadri-stampa-di-alta-qualita/_/R-p-c207ff72-4ff3-41f6-889c-d66708c0f485?mc=c207ff72-4ff3-41f6-889c-d66708c0f485_c4.c251&c=bianco', 'https://www.decathlon.it/p/costume-boxer-lungo-uomo/_/R-p-122525?mc=8616021&c=nero']
 
 
 pagine_da_aprire_FMS = ['https://www.decathlon.it/p/giacca-snowboard-donna-compatibile-ziprotec-snb-500-grigia/_/R-p-332260?mc=8758695&c=grigio', 'https://www.decathlon.it/p/mp/siroko/giacca-da-snowboard-da-donna-sport-invernali-w2-w-cerro-siroko-beige/_/R-p-cbae01ca-53a8-4bdf-8c81-87961457ee35?mc=cbae01ca-53a8-4bdf-8c81-87961457ee35_c30&c=beige', 'https://www.decathlon.it/p/mp/siroko/giacca-da-snowboard-da-donna-sport-invernali-w1-w-crystal-siroko-nero/_/R-p-4c55f510-f23e-4865-beea-531eddabe722?mc=4c55f510-f23e-4865-beea-531eddabe722_c1.c5&c=nero']
-pagine_da_aprire_FMR = ['https://www.decathlon.it/p/mp/siroko/giacca-da-snowboard-da-donna-sport-invernali-w1-w-crystal-siroko-nero/_/R-p-4c55f510-f23e-4865-beea-531eddabe722?mc=4c55f510-f23e-4865-beea-531eddabe722_c1.c5&c=nero', 'https://www.decathlon.it/p/mp/siroko/giacca-da-snowboard-da-donna-sport-invernali-w1-w-crystal-siroko-nero/_/R-p-4c55f510-f23e-4865-beea-531eddabe722?mc=4c55f510-f23e-4865-beea-531eddabe722_c1.c5&c=nero', 'https://www.decathlon.it/p/mp/siroko/giacca-da-snowboard-da-donna-sport-invernali-w1-w-crystal-siroko-nero/_/R-p-4c55f510-f23e-4865-beea-531eddabe722?mc=4c55f510-f23e-4865-beea-531eddabe722_c1.c5&c=nero']
-pagine_da_aprire_FMN = ['https://www.decathlon.it/p/mp/siroko/giacca-da-snowboard-da-donna-sport-invernali-w1-w-crystal-siroko-nero/_/R-p-4c55f510-f23e-4865-beea-531eddabe722?mc=4c55f510-f23e-4865-beea-531eddabe722_c1.c5&c=nero', 'https://www.decathlon.it/p/mp/siroko/giacca-da-snowboard-da-donna-sport-invernali-w1-w-crystal-siroko-nero/_/R-p-4c55f510-f23e-4865-beea-531eddabe722?mc=4c55f510-f23e-4865-beea-531eddabe722_c1.c5&c=nero', 'https://www.decathlon.it/p/mp/siroko/giacca-da-snowboard-da-donna-sport-invernali-w1-w-crystal-siroko-nero/_/R-p-4c55f510-f23e-4865-beea-531eddabe722?mc=4c55f510-f23e-4865-beea-531eddabe722_c1.c5&c=nero']
+pagine_da_aprire_FMR = ['https://www.decathlon.it/p/maglia-manica-lunga-running-donna-run-warm-nera/_/R-p-152557?mc=8394789&c=nero','https://www.decathlon.it/p/maglia-termica-running-donna-kiprun-skincare/_/R-p-336832?mc=8809905&c=blu','https://www.decathlon.it/p/maglia-manica-lunga-running-donna-kiprun-skincare/_/R-p-327200?mc=8809835&c=rosso_arancione', 'https://www.decathlon.it/p/pantaloncini-ciclisti-running-donna-run-500-comfort-neri/_/R-p-340075?mc=8820453&c=verde']
+pagine_da_aprire_FMN = ['https://www.decathlon.it/p/mp/adidas/bikini-neckholder/_/R-p-a8f59e26-1faf-4858-a769-fa079081f336?mc=a8f59e26-1faf-4858-a769-fa079081f336_c1.c4&c=nero', 'https://www.decathlon.it/p/costume-intero-donna-heva-li/_/R-p-306354?mc=8547548&c=rosa', 'https://www.decathlon.it/p/costume-intero-donna-kamiye/_/R-p-333202?mc=8788455&c=blu']
 
 pagine_da_aprire_FBS = ['https://www.decathlon.it/p/mp/cortina/giacca-invernale-da-donna-ice-imbottita-con-cappuccio-fondazione-cortina/_/R-p-789724d5-b817-4ea3-a951-1dff0f2b3a37?mc=789724d5-b817-4ea3-a951-1dff0f2b3a37_c2&c=grigio']
-pagine_da_aprire_FBR = ['https://www.decathlon.it/p/mp/siroko/giacca-da-snowboard-da-donna-sport-invernali-w1-w-crystal-siroko-nero/_/R-p-4c55f510-f23e-4865-beea-531eddabe722?mc=4c55f510-f23e-4865-beea-531eddabe722_c1.c5&c=nero', 'https://www.decathlon.it/p/mp/siroko/giacca-da-snowboard-da-donna-sport-invernali-w1-w-crystal-siroko-nero/_/R-p-4c55f510-f23e-4865-beea-531eddabe722?mc=4c55f510-f23e-4865-beea-531eddabe722_c1.c5&c=nero', 'https://www.decathlon.it/p/mp/siroko/giacca-da-snowboard-da-donna-sport-invernali-w1-w-crystal-siroko-nero/_/R-p-4c55f510-f23e-4865-beea-531eddabe722?mc=4c55f510-f23e-4865-beea-531eddabe722_c1.c5&c=nero']
-pagine_da_aprire_FBN = ['https://www.decathlon.it/p/mp/siroko/giacca-da-snowboard-da-donna-sport-invernali-w1-w-crystal-siroko-nero/_/R-p-4c55f510-f23e-4865-beea-531eddabe722?mc=4c55f510-f23e-4865-beea-531eddabe722_c1.c5&c=nero', 'https://www.decathlon.it/p/mp/siroko/giacca-da-snowboard-da-donna-sport-invernali-w1-w-crystal-siroko-nero/_/R-p-4c55f510-f23e-4865-beea-531eddabe722?mc=4c55f510-f23e-4865-beea-531eddabe722_c1.c5&c=nero', 'https://www.decathlon.it/p/mp/siroko/giacca-da-snowboard-da-donna-sport-invernali-w1-w-crystal-siroko-nero/_/R-p-4c55f510-f23e-4865-beea-531eddabe722?mc=4c55f510-f23e-4865-beea-531eddabe722_c1.c5&c=nero']
+pagine_da_aprire_FBR = ['https://www.decathlon.it/p/mp/tca/top-con-collo-a-imbuto-da-donna/_/R-p-4f336b17-e75e-4f59-a3a7-ffcd306a4cac?mc=4f336b17-e75e-4f59-a3a7-ffcd306a4cac_c1&c=nero']
+pagine_da_aprire_FBN = ['https://www.decathlon.it/p/costume-intero-donna-vega-light-hot/_/R-p-306386?mc=8647529&c=nero', 'https://www.decathlon.it/p/costume-intero-donna-kamyli/_/R-p-332968?mc=8645312&c=blu', 'https://www.decathlon.it/p/costume-intero-donna-kamiye-lazo/_/R-p-3930?mc=8579338&c=nero']
 
 #sport: sci, running, nuoto
 
@@ -356,13 +356,13 @@ combinazioni_funzioni = {
     ('M', sport[1], 'biondo'): random.choice(pagine_da_aprire_MBR),
     ('M', sport[2], 'biondo'): random.choice(pagine_da_aprire_MBN),
 
-    ('F', sport[0], 'moro'): random.choice(pagine_da_aprire_MMS),
-    ('F', sport[1], 'moro'): random.choice(pagine_da_aprire_MMR),
-    ('F', sport[2], 'moro'): random.choice(pagine_da_aprire_MMN),
+    ('F', sport[0], 'moro'): random.choice(pagine_da_aprire_FMS),
+    ('F', sport[1], 'moro'): random.choice(pagine_da_aprire_FMR),
+    ('F', sport[2], 'moro'): random.choice(pagine_da_aprire_FMN),
     
-    ('F', sport[0], 'biondo'): random.choice(pagine_da_aprire_MBS),
-    ('F', sport[1], 'biondo'): random.choice(pagine_da_aprire_MBR),
-    ('F', sport[2], 'biondo'): random.choice(pagine_da_aprire_MBN)
+    ('F', sport[0], 'biondo'): random.choice(pagine_da_aprire_FBS),
+    ('F', sport[1], 'biondo'): random.choice(pagine_da_aprire_FBR),
+    ('F', sport[2], 'biondo'): random.choice(pagine_da_aprire_FBN)
 }
 
 
@@ -499,19 +499,19 @@ def convertiTaglie(dato, vestito, sesso, tagliaSuccessiva):
             elif dato>=77 and dato<89:
                 if(tagliaSuccessiva):
                     return 'XL'
-                return 'L'
+                return 'M'
             elif dato>=89 and dato<101:
                 if(tagliaSuccessiva):
                     return '2XL'
-                return 'XL'
+                return 'M'
             elif dato>=101 and dato<113:
                 if(tagliaSuccessiva):
                     return '3XL'
-                return '2XL'
+                return 'L'
             elif dato>=113 and dato<125:
                 if(tagliaSuccessiva):
                     return 'Err'
-                return '3XL'
+                return 'XL'
             else:
                 return 'Err'  #errore
         elif vestito=='pantaloni':

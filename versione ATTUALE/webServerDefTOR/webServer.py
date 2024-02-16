@@ -2,6 +2,7 @@ import time
 import socket 
 import webbrowser
 from dependencies import *
+import urllib
 
 
 taglie = list(('S', 'M', 'L', 'XL', 'XXL'))
@@ -19,7 +20,7 @@ user = {
 
 ################################################
 # Indirizzo SERVER a cui mi collego
-SERVER_ADDRESS = '192.168.1.108'
+SERVER_ADDRESS = '192.168.168.105'
 #################################################
 
 
@@ -42,25 +43,26 @@ while True:
     print("\nConnessione ricevuta da NAO %s" % str(addr)) #per nao
 
     while True:
-        tg=taglie[2]
         data = c.recv(2048)
-        lista = list()
         if data:
             data = data.decode()
             print("Ricevuto '%s' da NAO" % data)
             if data == 'FINE':
                 print('chiusura dal NAO...')
                 c.close()
+                with urllib.request.urlopen('http://api.callmebot.com/start.php?user=@Ceseprova100&text=Un+cliente+ha+bisogno+di+un+operatore+al+reparto+sport&lang=it-IT-Standard-B&rpt=5') as response:
+                    html = response.read()
+                print(html)
                 break
             elif data == 'INIZIO':
-                data = 'Per il buon funzionamento del sistema avrei bisogno di sapere il tuo sesso, ma se non vuoi dirmelo non fa nulla. nel caso tu voglia specificarmelo pronuncia maschio se sei un maschio e femmina se sei una femmina altrimenti non voglio specificarlo.'
+                data = 'cerchi vestiti per uomo o per donna?'
                 webbrowser.open_new_tab('./img/sesso.pdf')#apre il pdf per la scelta del sesso
             elif data == 'donna' or data == 'uomo':
                 if data == 'donna':
                     user['sesso'] = 'F'
                 else:
                     user['sesso'] = 'M'
-                data = 'Per quale sport vuoi prepararti ? RUNNING, NUOTO o SCI? Io sono bravo in tutti e tre, ma non voglio vantarmi.'
+                data = 'Per quale sport vuoi prepararti ? SCI, RANNING o NUOTO? Io sono bravo in tutti e tre, ma non voglio vantarmi.'
                 webbrowser.open_new_tab('./img/sport.pdf')
             elif data == 'running' or data == 'nuoto' or data == 'sci' :
                 user['sport'] = data
@@ -75,23 +77,23 @@ while True:
                 frame = scatta_foto()
                 colore = ottieni_colore_medio(frame)
                 user['colore_capelli'] = colore
-                data = "ho rilevato che hai la taglia " + user['taglia'] + " e sei"+user['colore_capelli']+"di capelli va bene così?"
+                data = "ho rilevato che hai la taglia " + user['taglia'] + " e sei "+user['colore_capelli']+" di capelli va bene così?"
                 webbrowser.open_new_tab('./img/taglia_'+user['taglia']+'.pdf')#apre la pagina della taglia
             elif data == 'si' or data == 'no':
-                if data == 'no':
-                    data = 'ora ti propongo dei capi di abbigliamento secondo l\'armorcomia che ho rilevato!!'
+                if data == 'si':
+                    data = 'ora ti propongo dei capi di abbigliamento secondo l\'armocromia che ho rilevato!!'
                     user['taglia_succ'] = False
                 else:
-                    data = 'ora ti propongo dei capi di abbigliamento secondo l\'armorcomia che ho rilevato ma con una taglia in più!!'
+                    data = 'ora ti propongo dei capi di abbigliamento secondo l\'armocromia che ho rilevato ma con una taglia in più!!'
                     user['taglia_succ'] = True
                 #data = 'ora ti propongo dei capi di abbigliamento secondo l\'armorcomia che ho rilevato!!'
                 c.send(data.encode('utf-8'))
                 c.recv(2048)#consuma
+                print(user['sesso'])
                 link = gestisci_utente(user['sesso'], user['sport'], user['colore_capelli'])
                 data = ritornaRisposta(link)#ritorna la stringa dal file --> verrà implementato chat gpt
                 webbrowser.open_new_tab(link)
                 #data viene mandata dal send sotto
-
             print(data)
             data = data.encode()     
             c.send(data)
