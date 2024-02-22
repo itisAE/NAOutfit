@@ -617,28 +617,31 @@ class MyClass(GeneratedClass):
                             <script language="4">
                                 <content>
                                     <![CDATA[import socket
+
 class MyClass(GeneratedClass):
-    command=""
-    i=0
+    command = ""
+    i = 0
     c = socket.socket()
+
     def __init__(self):
         GeneratedClass.__init__(self)
 
     def onLoad(self):
-        #put initialization code here
         pass
 
     def onUnload(self):
-        #put clean-up code here
-        pass
+        self.closeSocket()
+
+    def closeSocket(self):
+        if self.c.fileno() != -1:
+            self.c.close()
 
     def onInput_onStart(self):
-        #self.onStopped() #activate the output of the box
         pass
 
     def onInput_onStop(self):
-        self.onUnload() #it is recommended to reuse the clean-up as the box is stopped
-        self.onStopped() #activate the output of the box
+        self.onUnload()
+        self.onStopped()
 
     def onInput_userCommand(self, user_word):
         self.command = user_word
@@ -646,73 +649,63 @@ class MyClass(GeneratedClass):
         self.processing()
 
     def processing(self):
-
-        SERVER_ADDRESS = '192.168.168.105'  # ip del pc su cui gira il server
+        SERVER_ADDRESS = '192.168.168.109'
         SERVER_PORT = 22222
+        data = ""
 
+        try:
+            if self.command == "MISURA":
+                data = 'INIZIO'
+                self.log("Connessione... ")
+                self.c.connect((SERVER_ADDRESS, SERVER_PORT))
+                self.log("Connessione al SERVER STABILITA")
 
-        self.log(self.command)
-        if self.command == "MISURA":
-            data = 'INIZIO'  # stringa inviata al server
-
-            # apro la connessione
-            self.log("Connessione... ")
-
-            self.c.connect((SERVER_ADDRESS, SERVER_PORT))
-            self.log("Connessione al SERVER STABILITA")
-
-        elif self.command == 'FINE':
-            data = 'FINE'
-            self.c.send(data)
-            self.c.close()
-            data = 'null'
-
-        else:
-            data = self.command
-
-        if (data!='null'):
-
-
-            # invio al PC (Server)
-            self.c.send(data)
-
-
-            # ricevo dal PC (Server)
-            data = self.c.recv(2048)
-            datastr = str(data)
-            # scrivo il log di del messaggio che ricevo
-            self.log("Ho ricevuto dal PC(Server) questo messagio: " + datastr)
-            # setto la variabile di output da passare al box successivo per farlo dire al Nao
-            self.i=self.i+1
-            self.log("var int: "+str(self.i))
-            if self.i>=3:
-                self.outputParlaEAscolta(datastr)
-            elif self.i==2:
-                self.outputParlaEAscoltaSport(datastr)
-            elif self.i==1:
-                self.outputParlaEAscoltaSesso(datastr)
-##########################################parte cambiata oer ultima
-            temp = data
-            temp = temp[0:6]
-            self.log(temp)
-            if temp == 'ora ti':
-                self.c.send('risposta vuota')
-                data = self.c.recv(2048)
-                datastr = str(data)
-                self.outputParlaEAscolta(datastr)
-                temp = 'FINE'
-                self.c.send(temp.encode("utf-8"))
+            elif self.command == 'FINE':
+                data = 'FINE'
+                self.c.send(data)
                 self.c.close()
-########################################
-            strOnPresetReceived = "Bene, ora che mi hai detto il tuo sport e il tuo sesso, posso iniziare a cercare il vestito più adatto per te. Per farlo, ho bisogno di fare uno scanning del tuo corpo, così da capire la tua taglia e il tuo colore dei capelli. Non ti preoccupare, è un’operazione veloce e indolore. Ti basterà stare fermo davanti a me per qualche secondo, mentre uso i miei potenti mezzi tecnici per scansionarti. Sei pronto?"
-            if data == strOnPresetReceived:
-                self.c.send('risposta vuota')
+                data = 'null'
+
+            else:
+                data = self.command
+
+            if data != 'null':
+                self.c.send(data)
                 data = self.c.recv(2048)
                 datastr = str(data)
-                self.outputParlaEAscolta(datastr)   #fa partire l'ascolto dopo aver parlato
+                self.log("Ho ricevuto dal PC(Server) questo messaggio: " + datastr)
+                self.i += 1
+                self.log("var int: " + str(self.i))
+                if self.i >= 3:
+                    self.outputParlaEAscolta(datastr)
+                elif self.i == 2:
+                    self.outputParlaEAscoltaSport(datastr)
+                elif self.i == 1:
+                    self.outputParlaEAscoltaSesso(datastr)
 
+                temp = data
+                temp = temp[0:6]
+                self.log(temp)
+                if temp == 'ora ti':
+                    self.c.send('risposta vuota')
+                    data = self.c.recv(2048)
+                    datastr = str(data)
+                    self.outputParlaEAscolta(datastr)
+                    temp = 'FINE'
+                    self.c.send(temp.encode("utf-8"))
+                    self.c.close()
 
-            # chiudo la connessione dal NAO (Client)
+                strOnPresetReceived = "Bene, ora che mi hai detto il tuo sport e il tuo sesso, posso iniziare a cercare il vestito più adatto per te. Per farlo, ho bisogno di fare uno scanning del tuo corpo, così da capire la tua taglia e il tuo colore dei capelli. Non ti preoccupare, è un’operazione veloce e indolore. Ti basterà stare fermo davanti a me per qualche secondo, mentre uso i miei potenti mezzi tecnici per scansionarti. Sei pronto?"
+                if data == strOnPresetReceived:
+                    self.c.send('risposta vuota')
+                    data = self.c.recv(2048)
+                    datastr = str(data)
+                    self.outputParlaEAscolta(datastr)
+
+        except Exception as e:
+            # Se si verifica un'eccezione, emetti un segnale per notificarlo
+            self.log("Si è verificata un'eccezione:", str(e))
+
 
         self.onStopped()]]>
 </content>
@@ -726,26 +719,6 @@ class MyClass(GeneratedClass):
                             <Output name="outputParlaEAscolta" type="3" type_size="1" nature="2" inner="0" tooltip="" id="7" />
                             <Output name="outputParlaEAscoltaSport" type="3" type_size="1" nature="2" inner="0" tooltip="" id="8" />
                             <Output name="OutputDaServer" type="3" type_size="1" nature="2" inner="0" tooltip="" id="9" />
-                        </Box>
-                        <Box name="Comment" id="11" localization="8" tooltip="To comment your behavior. Enter the text here and move the box where you like&#x0A;to add the comment.&#x0A;&#x0A;Note: This box is not functional and has no effect on the behavior." plugin="textedit_plugin" x="933" y="131">
-                            <bitmap>media/images/box/box-script.png</bitmap>
-                            <script language="4">
-                                <content>
-                                    <![CDATA[# /!\ Generated content. Do not edit!
-class MyClass(GeneratedClass):
-	def __init__(self):
-		GeneratedClass.__init__(self)
-
-	def onInput_onStart(self):
-		self.onStopped("bug sul uscita???")]]>
-</content>
-                            </script>
-                            <pluginContent>
-                                <text>
-                                    <![CDATA[bug sul uscita???]]>
-</text>
-                            </pluginContent>
-                            <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when Diagram is loaded." id="1" />
                         </Box>
                         <Link inputowner="12" indexofinput="2" outputowner="3" indexofoutput="3" />
                         <Link inputowner="2" indexofinput="2" outputowner="5" indexofoutput="4" />
