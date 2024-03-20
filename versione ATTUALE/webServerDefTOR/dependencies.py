@@ -300,7 +300,7 @@ def ottieni_colore_medio(frame, percorso_immagine_area = './prova_area.jpg'):#fo
     cv2.imwrite('./prova_colore.jpg', colore_immagine)#foto/
     colori_riferimento = {
         #'bianco': [255, 255, 255],
-        #'rosa_pelle': [255, 182, 193],
+        'rasato': [255, 182, 193],
         'moro': [165, 129, 76],
         #'marrone_scuro': [92, 64, 51],
         #'nero': [0, 0, 0],
@@ -327,8 +327,8 @@ def ottieni_colore_medio(frame, percorso_immagine_area = './prova_area.jpg'):#fo
 #FMN = femmine more nuoto
 
 pagine_da_aprire_MMS = ['https://www.decathlon.it/p/giacca-snowboard-uomo-snb100-grigia-e-nera/_/R-p-349323?mc=8827795&c=grigio', 'https://www.decathlon.it/p/giacca-sci-uomo-patrol-rossa/_/R-p-335336?mc=8667071&c=rosso', 'https://www.decathlon.it/p/piumino-sci-uomo-900-warm-azzurro/_/R-p-339367?mc=8802780&c=blu']
-pagine_da_aprire_MMR = ['https://www.decathlon.it/p/maglia-manica-lunga-running-uomo-warm-regul/_/R-p-311855?mc=8642366&c=nero', 'https://www.decathlon.it/p/maglia-termica-running-uomo-kiprun-skincare-grigia/_/R-p-307913?mc=8588361&c=grigio', 'https://www.decathlon.it/p/mp/bodycross/giacca-impermeabile-running-manao-grigia/_/R-p-fbf8f0c0-9429-46d3-b903-c759e625d239?mc=fbf8f0c0-9429-46d3-b903-c759e625d239_c251&c=grigio', 'https://www.decathlon.it/p/mp/gsclosure/t-shirt-uomo-bioattiva-tecnologia-raggi-infrarossi-lontani-bluabyss/_/R-p-523995e1-5f6d-4fdc-bd4e-14a30678d96e?mc=523995e1-5f6d-4fdc-bd4e-14a30678d96e_c8&c=blu', 'https://www.decathlon.it/p/giacca-impermeabile-running-uomo-kiprun-rain-nera/_/R-p-329263?mc=8649262&c=nero']
-pagine_da_aprire_MMN = ['https://www.decathlon.it/p/costume-boxer-uomo-speedo-trick-nero-verde/_/R-p-X8815018?mc=8815018&c=nero', 'https://www.decathlon.it/p/costume-slip-uomo-arena-santa-blu/_/R-p-X8821724?mc=8821724&c=blu', 'https://www.decathlon.it/p/costume-slip-uomo-arena-icons-rosso-bianco/_/R-p-X8821727?mc=8821727&c=rosso']
+pagine_da_aprire_MMR = ['https://www.decathlon.it/p/maglia-manica-lunga-running-uomo-warm-regul/_/R-p-311855?mc=8642366&c=nero', 'https://www.decathlon.it/p/maglia-termica-running-uomo-kiprun-skincare-grigia/_/R-p-307913?mc=8588361&c=grigio', 'https://www.decathlon.it/p/gilet-running-uomo-run-wind/_/R-p-121436?mc=8487907&c=nero', 'https://www.decathlon.it/p/mp/gsclosure/t-shirt-uomo-bioattiva-tecnologia-raggi-infrarossi-lontani-bluabyss/_/R-p-523995e1-5f6d-4fdc-bd4e-14a30678d96e?mc=523995e1-5f6d-4fdc-bd4e-14a30678d96e_c8&c=blu', 'https://www.decathlon.it/p/giacca-impermeabile-running-uomo-kiprun-rain-nera/_/R-p-329263?mc=8649262&c=nero']
+pagine_da_aprire_MMN = ['https://www.decathlon.it/p/costume-boxer-uomo-speedo-trick-nero-verde/_/R-p-X8815018?mc=8815018&c=nero', 'https://www.decathlon.it/p/costume-slip-uomo-arena-icons-rosso-bianco/_/R-p-X8821727?mc=8821727&c=rosso_bianco', 'https://www.decathlon.it/p/costume-slip-uomo-arena-icons-rosso-bianco/_/R-p-X8821727?mc=8821727&c=rosso']
 
 pagine_da_aprire_MBS = ['https://www.decathlon.it/p/giacca-sci-uomo-900/_/R-p-339432?mc=8801961&c=verde']
 pagine_da_aprire_MBR = ['https://www.decathlon.it/p/maglia-running-uomo-dry-breath-rossa/_/R-p-326372?mc=964110&c=nero', 'https://www.decathlon.it/p/maglia-manica-lunga-running-uomo-sun-protect-nera/_/R-p-145872?mc=8398867&c=nero']
@@ -351,6 +351,10 @@ combinazioni_funzioni = {
     ('M', sport[0], 'moro'): random.choice(pagine_da_aprire_MMS),
     ('M', sport[1], 'moro'): random.choice(pagine_da_aprire_MMR),
     ('M', sport[2], 'moro'): random.choice(pagine_da_aprire_MMN),
+
+    ('M', sport[0], 'rasato'): random.choice(pagine_da_aprire_MMS),
+    ('M', sport[1], 'rasato'): random.choice(pagine_da_aprire_MMR),
+    ('M', sport[2], 'rasato'): random.choice(pagine_da_aprire_MMN),
 
     ('M', sport[0], 'biondo'): random.choice(pagine_da_aprire_MBS),
     ('M', sport[1], 'biondo'): random.choice(pagine_da_aprire_MBR),
@@ -430,16 +434,16 @@ def convertiTaglie(dato, vestito, sesso, tagliaSuccessiva):
                 return 'L'
             elif dato>=104 and dato<114:
                 if(tagliaSuccessiva):
-                    return '2XL'
+                    return 'XL'
                 return 'XL'
             elif dato>=114 and dato<124:
                 if(tagliaSuccessiva):
-                    return '3XL'
-                return '2XL'
+                    return 'XL'
+                return 'XL'
             elif dato>=124 and dato<134:
                 if(tagliaSuccessiva):
-                    return 'Err'
-                return '3XL'
+                    return 'XL'
+                return 'XL'
             else:
                 return 'Err'  #errore
         elif vestito=='pantaloni':
@@ -490,28 +494,28 @@ def convertiTaglie(dato, vestito, sesso, tagliaSuccessiva):
                 return 'XS'
             elif dato>=71 and dato<74:
                 if(tagliaSuccessiva):
-                    return 'M'
+                    return 'S'
                 return 'S'
             elif dato>=74 and dato<77:
                 if(tagliaSuccessiva):
-                    return 'L'
-                return 'M'
+                    return 'S'
+                return 'S'
             elif dato>=77 and dato<89:
                 if(tagliaSuccessiva):
-                    return 'XL'
-                return 'M'
+                    return 'S'
+                return 'S'
             elif dato>=89 and dato<101:
                 if(tagliaSuccessiva):
-                    return '2XL'
-                return 'M'
+                    return 'M'
+                return 'S'
             elif dato>=101 and dato<113:
                 if(tagliaSuccessiva):
-                    return '3XL'
-                return 'L'
+                    return 'M'
+                return 'M'
             elif dato>=113 and dato<125:
                 if(tagliaSuccessiva):
-                    return 'Err'
-                return 'XL'
+                    return 'M'
+                return 'M'
             else:
                 return 'Err'  #errore
         elif vestito=='pantaloni':
